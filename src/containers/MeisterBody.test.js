@@ -3,7 +3,7 @@
  */
 
 import React from "react";
-import MeisterBody from "../Containers/MeisterBody";
+import MeisterBody from ".//MeisterBody";
 import renderer from "react-test-renderer";
 import trafficMeister from "../service";
 import ReactDOM from "react-dom";

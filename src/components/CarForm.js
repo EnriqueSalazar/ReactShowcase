@@ -2,7 +2,7 @@
  * Created by enriq on 17/11/16.
  */
 import React from "react";
-import FormItem from "../Components/FormItem";
+import FormItem from ".//FormItem";
 import { Grid, Col, Row, Well, Button, Glyphicon } from "react-bootstrap";
 
 const CarForm = props => {

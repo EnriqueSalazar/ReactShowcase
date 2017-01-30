@@ -2,7 +2,7 @@
  * Created by enriq on 17/11/16.
  */
 import React from "react";
-import CarForm from "../Components/CarForm";
+import CarForm from ".//CarForm";
 import renderer from "react-test-renderer";
 
 test("Render CarForm test", () => {

@@ -11,11 +11,11 @@ const Root = ({ store, history }) => (
       <DevTools />
     </div>
   </Provider>
-)
+);
 
 Root.propTypes = {
   store: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired
-}
+};
 
 export default Root

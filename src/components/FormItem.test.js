@@ -2,7 +2,7 @@
  * Created by enriq on 17/11/16.
  */
 import React from "react";
-import FormItem from "../Components/FormItem";
+import FormItem from ".//FormItem";
 import renderer from "react-test-renderer";
 
 test("Render FormItem test", () => {
