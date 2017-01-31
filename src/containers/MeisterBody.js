@@ -5,22 +5,17 @@ import React, {Component, PropTypes} from "react";
 import CarForm from "../components/CarForm";
 import ResultsTable from "../components/ResultsTable";
 import {Grid, Col, Row, Alert, Button} from "react-bootstrap";
-import trafficMeister from '../service';
+import _ from 'lodash';
 
 
 class MeisterBody extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            vehicleTypes: [],
-            vehicleBrands: [],
-            vehicleBrandColors: [],
-            data: null,
             type: "",
             brand: "",
             color: "",
-            selected: [],
-            err: null
+            brandId: ""
         };
     }
 
@@ -29,102 +24,88 @@ class MeisterBody extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        const data = nextProps.meister.data
-        if (data) {
-            const vehicleTypes = this.filterTypes(data);
-            this.setState({vehicleTypes})
-        } else {
-            this.props.fetchService();
+        const data = nextProps.meister.data;
+        if (!data) {
+            this.fetchMeister();
+        } else if (!_.isEqual(data, this.props.meister.data)) {
+
+            this.filterTypes(data);
         }
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        const shouldUpdate = !!nextProps.meister.data;
-        return shouldUpdate;
-    }
-
     fetchMeister = () => {
-        trafficMeister.fetchData((error, data) => {
-            this.props.fetchService({error, data});
-        });
+        this.props.actions.fetchMeister();
     };
 
     filterTypes = data => {
-        let vehicleTypes = [];
-        data.map(item => {
-            let type = vehicleTypes.find(type => {
-                return item.type === type.option;
-            });
-            if (typeof type === "undefined") {
-                vehicleTypes.push({value: item.type, option: item.type});
-            }
-        });
-        return vehicleTypes;
+
+        this.props.actions.filterTypes(data);
+    };
+    filterBrands = type => {
+        debugger
+        const data = this.props.meister.data;
+        this.props.actions.filterBrands(data, type);
+    };
+    filterBrandColors = selectedBrandId => {
+        const data = this.props.meister.data;
+        this.props.actions.filterBrandColors(data, selectedBrandId);
     };
 
-    filterBrands = e => {
-        let type = e.target.value;
-        let vehicleBrands = [];
-        this.state.data.map(item => {
-            if (item.type === type) {
-                vehicleBrands.push({value: item.id, option: item.brand});
-            }
-        });
-        this.setState({vehicleBrands, type});
+    selectType = e => {
+        const type = e.target.value;
+        this.setState({type});
+        this.filterBrands(type)
     };
-
-    filterBrandColors = e => {
-        let brand = e.target.options[e.target.selectedIndex].text;
-        let selectedBrandId = parseInt(e.target.value, 10);
-        let vehicleBrandColors = [];
-        let selectedBrand = this.state.data.find(item => {
-            return item.id === selectedBrandId;
-        });
-        selectedBrand.colors.map(color => {
-            vehicleBrandColors.push({value: color, option: color});
-        });
-        this.setState({vehicleBrandColors, brand});
+    selectBrand = e => {
+        const brand = e.target.options[e.target.selectedIndex].text;
+        const brandId = e.target.value;
+        this.setState({brand, brandId});
+        this.filterBrandColors(+brandId);
     };
-
-    selectedColor = e => {
+    selectColor = e => {
         let color = e.target.value;
         this.setState({color});
     };
 
     addSelected = () => {
-        let selected = this.state.selected;
-        let type = this.state.type;
-        let brand = this.state.brand;
-        let color = this.state.color;
+        const type = this.state.type;
+        const brand = this.state.brand;
+        const color = this.state.color;
         if (type && brand && color) {
-            selected.push({type, brand, color});
-            this.setState({selected});
+            this.props.actions.addSelected({type, brand, color});
+            this.setState({type: '', brand: '', brandId: '', color: ''});
         }
     };
-    RenderData = props => {
+
+    RenderData = () => {
+        const meister = this.props.meister;
         return (
             <Grid>
                 <Row>
                     <Col>
                         <CarForm
-                            filterBrands={this.filterBrands}
-                            vehicleTypes={this.state.vehicleTypes}
-                            filterBrandColors={this.filterBrandColors}
-                            vehicleBrands={this.state.vehicleBrands}
-                            selectedColor={this.selectedColor}
-                            vehicleBrandColors={this.state.vehicleBrandColors}
+                            selectType={this.selectType}
+                            vehicleTypes={meister.vehicleTypes}
+                            selectBrand={this.selectBrand}
+                            vehicleBrands={meister.vehicleBrands}
+                            selectColor={this.selectColor}
+                            vehicleBrandColors={meister.vehicleBrandColors}
                             addSelected={this.addSelected}
+                            type={this.state.type}
+                            brand={this.state.brandId}
+                            color={this.state.color}
                         />
                     </Col>
                 </Row>
-                <Row><ResultsTable selected={this.state.selected}/></Row>
+                <Row><ResultsTable selected={meister.selected}/></Row>
             </Grid>
         );
     };
     RenderError = () => {
+        const err = this.props.meister.error;
         return (
             <Alert bsStyle="danger">
-                <h2>{this.state.err}</h2>
+                <h2>{err}</h2>
                 <p>
                     <Button bsStyle="danger" onClick={() => this.fetchMeister()}>
                         Reload
@@ -135,15 +116,17 @@ class MeisterBody extends Component {
     };
 
     render() {
+        debugger
+        const err = this.props.meister.error;
         let RenderData = this.RenderData;
         let RenderError = this.RenderError;
-        return <div>{this.state.err ? <RenderError /> : <RenderData />}</div>;
+        return <div>{err ? <RenderError /> : <RenderData />}</div>;
     }
 }
 
 MeisterBody.propTypes = {
-    fetchService: PropTypes.func.isRequired,
+    actions: PropTypes.object.isRequired,
     meister: PropTypes.object.isRequired
-}
+};
 
 export default MeisterBody;

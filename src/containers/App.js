@@ -8,7 +8,7 @@ import TopBar from '../components/TopBar'
 const App =({meister, actions}) =>(
             <div className="App">
                 <TopBar />
-                <MeisterBody fetchService={actions.fetchService} meister={meister}/>
+                <MeisterBody actions={actions} meister={meister}/>
             </div>
 
 );

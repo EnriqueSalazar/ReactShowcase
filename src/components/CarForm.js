@@ -2,61 +2,68 @@
  * Created by enriq on 17/11/16.
  */
 import React from "react";
-import FormItem from ".//FormItem";
-import { Grid, Col, Row, Well, Button, Glyphicon } from "react-bootstrap";
+import FormItem from "./FormItem";
+import {Grid, Col, Row, Well, Button, Glyphicon} from "react-bootstrap";
 
 const CarForm = props => {
-  let {
-    filterBrands,
-    filterBrandColors,
-    selectedColor,
-    vehicleTypes,
-    vehicleBrands,
-    vehicleBrandColors,
-    addSelected
-  } = props;
-  return (
-    <div>
-      <Well>
-        <Grid fluid>
-          <Row>
-            <Col md={3}>
-              <FormItem
-                callback={filterBrands}
-                label="Type"
-                list={vehicleTypes}
-              />
-            </Col>
-            <Col md={3}>
-              <FormItem
-                callback={filterBrandColors}
-                label="Brands"
-                list={vehicleBrands}
-              />
-            </Col>
-            <Col md={3}>
-              <FormItem
-                callback={selectedColor}
-                label="Colors"
-                list={vehicleBrandColors}
-              />
-            </Col>
-            <Col md={3}>
-              <br />
-              <Button
-                bsStyle="primary"
-                bsSize="large"
-                onClick={() => addSelected()}
-                block
-              >
-                <Glyphicon glyph="ok" />{" Select"}
-              </Button>
-            </Col>
-          </Row>
-        </Grid>
-      </Well>
-    </div>
-  );
+    let {
+        selectType,
+        selectBrand,
+        selectColor,
+        vehicleTypes,
+        vehicleBrands,
+        vehicleBrandColors,
+        addSelected,
+        type,
+        brand,
+        color,
+    } = props;
+
+    return (
+        <div>
+            <Well>
+                <Grid fluid>
+                    <Row>
+                        <Col md={3}>
+                            <FormItem
+                                callback={selectType}
+                                label="Type"
+                                list={vehicleTypes}
+                                value={type}
+                            />
+                        </Col>
+                        <Col md={3}>
+                            <FormItem
+                                callback={selectBrand}
+                                label="Brands"
+                                list={vehicleBrands}
+                                value={brand}
+                            />
+                        </Col>
+                        <Col md={3}>
+                            <FormItem
+                                callback={selectColor}
+                                label="Colors"
+                                list={vehicleBrandColors}
+                                value={color}
+                            />
+                        </Col>
+                        <Col md={3}>
+                            <br />
+                            <Button
+                                bsStyle="primary"
+                                bsSize="large"
+                                onClick={() => addSelected()}
+                                block
+                            >
+                                <Glyphicon glyph="ok"/>{" Select"}
+                            </Button>
+                        </Col>
+                    </Row>
+                </Grid>
+            </Well>
+        </div>
+    );
 };
 
 export default CarForm;
