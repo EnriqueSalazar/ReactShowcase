@@ -15,11 +15,11 @@ const FormItem = props => {
                     onChange={callback}
                     value={value}
                 >
-                    <option value="select">{""}</option>
-                    {list.map(item => {
+                    <option value="">{"Select"}</option>
+                    {list.map((item, i) => {
                         return (
-                            <option value={item.value} key={item.value}>
-                                {item.option}
+                            <option value={item} key={i}>
+                                {item}
                             </option>
                         );
                     })}
