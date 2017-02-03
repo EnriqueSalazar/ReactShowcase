@@ -7,7 +7,6 @@ import ResultsTable from "../components/ResultsTable";
 import {Grid, Col, Row, Alert, Button} from "react-bootstrap";
 import _ from 'lodash';
 
-
 class MeisterBody extends Component {
     constructor(props) {
         super(props);
@@ -15,7 +14,6 @@ class MeisterBody extends Component {
             type: "",
             brand: "",
             color: "",
-            brandId: ""
         };
     }
 
@@ -28,7 +26,6 @@ class MeisterBody extends Component {
         if (!data) {
             this.fetchMeister();
         } else if (!_.isEqual(data, this.props.meister.data)) {
-
             this.filterTypes(data);
         }
     }
@@ -38,29 +35,28 @@ class MeisterBody extends Component {
     };
 
     filterTypes = data => {
-
         this.props.actions.filterTypes(data);
     };
-    filterBrands = type => {
-        debugger
+    filterBrands = (type) => {
         const data = this.props.meister.data;
         this.props.actions.filterBrands(data, type);
     };
-    filterBrandColors = selectedBrandId => {
+    filterBrandColors = (type, brand) => {
         const data = this.props.meister.data;
-        this.props.actions.filterBrandColors(data, selectedBrandId);
+        this.props.actions.filterBrandColors(data, type, brand);
     };
 
     selectType = e => {
         const type = e.target.value;
-        this.setState({type});
-        this.filterBrands(type)
+        this.setState({type}, this.filterBrands(type));
+        this.resetField('brand');
+        this.resetField('color');
     };
     selectBrand = e => {
-        const brand = e.target.options[e.target.selectedIndex].text;
-        const brandId = e.target.value;
-        this.setState({brand, brandId});
-        this.filterBrandColors(+brandId);
+        const brand = e.target.value;
+        const type = this.state.type;
+        this.setState({brand}, this.filterBrandColors(type, brand));
+        this.resetField('color');
     };
     selectColor = e => {
         let color = e.target.value;
@@ -73,8 +69,14 @@ class MeisterBody extends Component {
         const color = this.state.color;
         if (type && brand && color) {
             this.props.actions.addSelected({type, brand, color});
-            this.setState({type: '', brand: '', brandId: '', color: ''});
+            this.resetField('type');
+            this.resetField('brand');
+            this.resetField('color');
         }
+    };
+
+    resetField = (field) => {
+        this.setState({[field]: ''});
     };
 
     RenderData = () => {
@@ -92,7 +94,7 @@ class MeisterBody extends Component {
                             vehicleBrandColors={meister.vehicleBrandColors}
                             addSelected={this.addSelected}
                             type={this.state.type}
-                            brand={this.state.brandId}
+                            brand={this.state.brand}
                             color={this.state.color}
                         />
                     </Col>
@@ -116,7 +118,6 @@ class MeisterBody extends Component {
     };
 
     render() {
-        debugger
         const err = this.props.meister.error;
         let RenderData = this.RenderData;
         let RenderError = this.RenderError;

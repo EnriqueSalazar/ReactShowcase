@@ -35,11 +35,14 @@ export default function todos(state = initialState, action) {
             return {
                 ...state,
                 vehicleTypes: action.vehicleTypes,
+                vehicleBrands: action.vehicleBrands,
+                vehicleBrandColors: action.vehicleBrandColors,
             };
         case FILTER_BRANDS:
             return {
                 ...state,
                 vehicleBrands: action.vehicleBrands,
+                vehicleBrandColors: action.vehicleBrandColors,
             };
         case FILTER_BRAND_COLORS:
             return {
