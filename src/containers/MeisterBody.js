@@ -37,25 +37,25 @@ class MeisterBody extends Component {
     filterTypes = data => {
         this.props.actions.filterTypes(data);
     };
-    filterBrands = (type) => {
-        const data = this.props.meister.data;
+    filterBrands = (data, type) => {
         this.props.actions.filterBrands(data, type);
     };
-    filterBrandColors = (type, brand) => {
-        const data = this.props.meister.data;
+    filterBrandColors = (data, type, brand) => {
         this.props.actions.filterBrandColors(data, type, brand);
     };
 
     selectType = e => {
+        const data = this.props.meister.data;
         const type = e.target.value;
-        this.setState({type}, this.filterBrands(type));
+        this.setState({type}, this.filterBrands(data, type));
         this.resetField('brand');
         this.resetField('color');
     };
     selectBrand = e => {
+        const data = this.props.meister.data;
         const brand = e.target.value;
         const type = this.state.type;
-        this.setState({brand}, this.filterBrandColors(type, brand));
+        this.setState({brand}, this.filterBrandColors(data, type, brand));
         this.resetField('color');
     };
     selectColor = e => {

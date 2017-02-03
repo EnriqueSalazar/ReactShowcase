@@ -1,4 +1,3 @@
-/*eslint no-unused-vars:0*/
 import * as types from '../constants/ActionTypes'
 import trafficMeister from '../service';
 import _ from 'lodash';
