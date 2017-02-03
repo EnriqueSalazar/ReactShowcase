@@ -18,7 +18,7 @@ const CarForm = props => {
         brand,
         color,
     } = props;
-
+    const buttonDisabled= !(type&&brand&&color);
     return (
         <div>
             <Well>
@@ -55,6 +55,7 @@ const CarForm = props => {
                                 bsSize="large"
                                 onClick={() => addSelected()}
                                 block
+                                disabled={buttonDisabled}
                             >
                                 <Glyphicon glyph="ok"/>{" Select"}
                             </Button>
