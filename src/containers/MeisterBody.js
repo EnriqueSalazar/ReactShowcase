@@ -17,6 +17,7 @@ class MeisterBody extends Component {
         };
     }
 
+
     componentDidMount() {
         this.fetchMeister();
     }
@@ -31,9 +32,8 @@ class MeisterBody extends Component {
     }
 
     fetchMeister = () => {
-        this.props.actions.fetchMeister();
+        this.props.actions.fetchMeister()
     };
-
     filterTypes = data => {
         this.props.actions.filterTypes(data);
     };
@@ -50,6 +50,7 @@ class MeisterBody extends Component {
         this.setState({type}, this.filterBrands(data, type));
         this.resetField('brand');
         this.resetField('color');
+        this.clearMenu('color');
     };
     selectBrand = e => {
         const data = this.props.meister.data;
@@ -72,11 +73,28 @@ class MeisterBody extends Component {
             this.resetField('type');
             this.resetField('brand');
             this.resetField('color');
+            this.clearMenu('brand');
+            this.clearMenu('color');
         }
     };
+    clearMenu = (field) => {
+        const data = this.props.meister.data;
+        const type = 'Select';
+        switch (field) {
+            case 'color':
+                const brand = 'Select';
+                this.filterBrandColors(data, type, brand);
+                break;
+            case 'brand':
+                this.filterBrands(data, type);
+                break;
+            default:
+        }
 
+    };
     resetField = (field) => {
         this.setState({[field]: ''});
+
     };
 
     RenderData = () => {

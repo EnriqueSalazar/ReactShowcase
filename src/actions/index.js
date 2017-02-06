@@ -13,11 +13,14 @@ export const fetchMeister = () => {
 
 export const addSelected = payload => ({type: types.ADD_SELECTED, payload});
 
-const filter = (data, criteria, field) => {
+export const filter = (data, criteria, field) => {
     const filteredData = _.filter(data, criteria);
-    const fieldValues = _.map(filteredData, field);
+    const fieldValues = _.map(filteredData, field)
     return _.uniq(fieldValues);
 };
+
+
+
 export const filterTypes = (data) => {
     const vehicleTypes = filter(data, {}, 'type');
     const vehicleBrands = [];
@@ -32,6 +35,5 @@ export const filterBrands = (data, type) => {
 
 export const filterBrandColors = (data, type, brand) => {
     const vehicleBrandColors = filter(data, {type, brand}, 'colors')[0];
-     
     return {type: types.FILTER_BRAND_COLORS, vehicleBrandColors};
 };

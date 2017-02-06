@@ -16,7 +16,7 @@ const FormItem = props => {
                     value={value}
                 >
                     <option value="">{"Select"}</option>
-                    {list.map((item, i) => {
+                    {list && list.map((item, i) => {
                         return (
                             <option value={item} key={i}>
                                 {item}
