@@ -1,26 +1,26 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import QuizEntry from './QuizEntry'
+import ToDo from './ToDo'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import * as MaintActions from '../actions'
 
-const Main = ({quizEntry, actions, router}) => (
+const Main = ({toDo, actions, router}) => (
   <div className="App">
-    <QuizEntry
+    <ToDo
       actions={actions}
-      quizEntry={quizEntry}
+      toDo={toDo}
       router={router} />
   </div>
 )
 
 Main.propTypes = {
-  quizEntry: PropTypes.object.isRequired,
+  toDo: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
-  quizEntry: state.quizEntry
+  toDo: state.toDo
 })
 
 const mapDispatchToProps = dispatch => ({

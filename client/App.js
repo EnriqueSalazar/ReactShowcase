@@ -1,15 +1,13 @@
 import React from 'react'
-import {
-  ApolloProvider} from 'react-apollo'
 import {Grid} from 'react-flexbox-grid'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
-import apollo from './apolloClient'
 import routes from './routes'
 import configureStore from './store/configureStore'
+import {Provider} from 'react-redux'
 
 const App = () => (
-  <ApolloProvider store={configureStore({})} client={apollo}>
+  <Provider store={configureStore({})}>
     <MuiThemeProvider>
       <Grid
         fluid style={{
@@ -18,6 +16,6 @@ const App = () => (
         {routes}
       </Grid>
     </MuiThemeProvider>
-  </ApolloProvider>
+  </Provider>
 )
 export default App

@@ -7,14 +7,10 @@ import {
   browserHistory
 } from 'react-router'
 import Main from './containers/Main'
-import Quiz from './containers/Quiz'
-import Scoreboard from './containers/Scoreboard'
 
 let routes = (
   <div>
     <Route path="/" component={Main} />
-    <Route path="/quiz" component={Quiz} />
-    <Route path="/scoreboard" component={Scoreboard} />
   </div>
 )
 

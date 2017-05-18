@@ -3,7 +3,6 @@
 const express = require('express')
 const path = require('path')
 
-const graphql = require('./server/lib/graphql')
 const webpack = require('./server/lib/webpack')
 
 const app = express()
@@ -19,12 +18,11 @@ console.log('process.env.NODE_ENV', process.env.NODE_ENV)
 //   next()
 // })
 
-app.use(graphql.router)
 app.use(webpack.router)
 
 app.use('/static', express.static(path.resolve(__dirname, 'dist')))
 
-app.get(['/', '/quiz', '/scoreboard'], (req, res) => {
+app.get(['/'], (req, res) => {
   res.sendFile('./dist/index.html', {root: __dirname})
 })
 function redirectUnmatched (req, res) {

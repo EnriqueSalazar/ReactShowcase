@@ -1,25 +1,10 @@
 import * as types from '../constants/ActionTypes'
 
-export const setToken = (token, subject) =>
-({type: types.SET_TOKEN, payload: {token, subject}})
+export const add = () =>
+({type: types.ADD})
 
-export const toggleInterest = subject =>
-({type: types.TOGGLE_INTEREST, payload: subject})
+export const toggle = index =>
+({type: types.TOGGLE, payload: index})
 
-export const toggleTerm = () =>
-({type: types.TOGGLE_TERM})
-
-export const timeout = () =>
-({type: types.TIME_OUT})
-
-export const updateDetails = (field, value) =>
-({type: types.UPDATE_DETAILS, payload: {field, value}})
-
-export const addAnswer = (answer) =>
-({type: types.ADD_ANSWER, payload: answer})
-
-export const initQuestions = (questions) =>
-({type: types.INIT_QUESTIONS, payload: questions})
-
-export const setScore = (score) =>
-({type: types.SET_SCORE, payload: score})
+export const update = text =>
+({type: types.UPDATE, payload: text})

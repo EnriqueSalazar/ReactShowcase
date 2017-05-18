@@ -1,19 +1,6 @@
-// Copyright 2015-2016, Google, Inc. Licensed under the Apache License, Version
-// 2.0 (the "License"); you may not use this file except in compliance with the
-// License. You may obtain a copy of the License at
-//
-//    http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
-// License for the specific language governing permissions and limitations under
-// the License.
 
 'use strict'
 
-// Hierarchical node.js configuration with command-line arguments, environment
-// variables, and files.
 const nconf = require('nconf')
 
 nconf
@@ -21,52 +8,9 @@ nconf
   .argv()
 // 2. Environment variables
   .env([
-    'CLOUD_BUCKET',
-    'DATA_BACKEND',
-    'GCLOUD_PROJECT',
-    'MONGO_URL',
-    'MONGO_COLLECTION',
-    'MYSQL_USER',
-    'MYSQL_PASSWORD',
-    'NODE_ENV',
-    'OAUTH2_CLIENT_ID',
-    'OAUTH2_CLIENT_SECRET',
-    'OAUTH2_CALLBACK',
-    'PORT',
-    'SECRET',
-    'COOKIE_NAME',
-    'COOKIE_MAX_AGE_IN_HOURS',
-    'FRONTEND_ROOT'
+    'SECRET'
   ])
-// 3. Config file .file({ file: path.join(__dirname, 'config.json') })
-// 4. Defaults
   .defaults({
-  // Typically you will create a bucket with the same name as your project ID.
-    CLOUD_BUCKET: 'sytac-quiz2',
-  // dataBackend can be 'datastore', 'cloudsql', or 'mongodb'. Be sure to
-  // configure the appropriate settings for each storage engine below. If you are
-  // unsure, use datastore as it requires no additional configuration.
-    DATA_BACKEND: 'datastore',
-
-  // This is the id of your project in the Google Cloud Developers Console.
-    GCLOUD_PROJECT: 'sytac-quiz2',
-
-  // Connection url for the Memcache instance used to store session data
-  // MEMCACHE_URL: 'localhost:11211',
-    MEMCACHE_URL: 'memcache:11211',
-
-  // MongoDB connection string
-  // https://docs.mongodb.org/manual/reference/connection-string/ MONGO_URL:
-  // 'mongodb://localhost:27017', MONGO_COLLECTION: 'books', MYSQL_USER: '',
-  // MYSQL_PASSWORD: '',
-
-    OAUTH2_CLIENT_ID: '385431397485-phq68ort7nhlatcnha6f4dff7o8ddvj8.apps.googleusercontent.com',
-    OAUTH2_CLIENT_SECRET: 'sg8fIwSBVaylcMKD_wsDXneU',
-    OAUTH2_CALLBACK: '/auth/google/callback',
-
-  // Port the HTTP server
-    PORT: 8080,
-
     SECRET: `-----BEGIN RSA PRIVATE KEY-----
 MIIJKQIBAAKCAgEAhOftYoeNoibharF3tw1ohQbiHwX8OrBBnIzgvF6Sl15sEmh8
 uJY1tuYFJ6PAwSGUBlkhoi0Mkmf8hwqrZMgGi4pd5wHZ4RgiFNV/YGtD78A1O2G2
@@ -117,10 +61,7 @@ m7NGhwABj54lqBkr/Xb0eeqalZvjDwA6d+DQSla1W0dYl+F1o0XTdjp6LqEBVBlc
 omZdk2jXDU7uRVm7/LQY6MPfXlo+YvrHRQFvNDICngq/e533BC5XNN1OPBKSulhm
 UC5kqLvaTv3ned4vwFR66cghXdH9k/LlxdOANJzekTCqEGsIwca6bX1OywtfDh78
 OoQt4lUtdx6HCz3PuLEgv+LbLOe4bGhS5dnNERXiTJMr6fRtv/X7EmDVRYKe
------END RSA PRIVATE KEY-----`,
-    COOKIE_NAME: 'app-cookie',
-    COOKIE_MAX_AGE_IN_HOURS: 48,
-    FRONTEND_ROOT: 'http://sytac-quiz2.appspot.com/'
+-----END RSA PRIVATE KEY-----`
   })
 
 module.exports.config = nconf

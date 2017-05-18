@@ -27,16 +27,16 @@ const TextField = props => (
     floatingLabelText={props.floatingLabelText}
     floatingLabelFocusStyle={inputStyles.floatingLabelFocusStyle}
     underlineFocusStyle={inputStyles.underlineFocusStyle}
-    errorText={props.errorText}
-    onChange={props.onDetailChange}
+    onChange={props.onChange}
+    value={props.value}
     fullWidth />
 )
 
 TextField.propTypes = {
   hintText: PropTypes.string.isRequired,
   floatingLabelText: PropTypes.string.isRequired,
-  errorText: PropTypes.string,
-  onDetailChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.string,
   id: PropTypes.string.isRequired
 }
 

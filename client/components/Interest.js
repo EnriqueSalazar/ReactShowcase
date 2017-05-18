@@ -21,6 +21,8 @@ const flatButtonStyles = {
 
 const Interest = props => (
   <FlatButton
+    id={props.id}
+    name={props.id}
     label={props.label}
     labelStyle={props.active
 ? flatButtonStyles.activelabelStyle
@@ -32,7 +34,8 @@ const Interest = props => (
 Interest.propTypes = {
   label: PropTypes.string.isRequired,
   active: PropTypes.bool.isRequired,
-  onTouchTap: PropTypes.func.isRequired
+  onTouchTap: PropTypes.func.isRequired,
+  id: PropTypes.integer
 }
 
 export default Interest

@@ -4,14 +4,13 @@ import thunk from 'redux-thunk'
 import createLogger from 'redux-logger'
 import rootReducer from '../reducers'
 // import DevTools from '../containers/DevTools'
-import apollo from '../apolloClient'
 
 const configureStore = (preloadedState) => {
   const DEBUG =
   process.env.NODE_ENV === 'development'
   const middleware = [
     thunk,
-    DEBUG && createLogger(), apollo.middleware()
+    DEBUG && createLogger()
   ].filter(Boolean)
   const composeEnhancers =
   (DEBUG && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose
