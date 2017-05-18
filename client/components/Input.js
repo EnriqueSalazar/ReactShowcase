@@ -5,6 +5,7 @@ import IconButton from 'material-ui/IconButton'
 import HardwareVideogameAsset from 'material-ui/svg-icons/hardware/videogame-asset'
 import TextField from './TextField'
 import HeaderTitle from './styled/HeaderTitle'
+import {orange500} from 'material-ui/styles/colors'
 
 const Input = props => (
   <div>
@@ -18,7 +19,7 @@ const Input = props => (
     <Row center="xs">
       <Col
         xsOffset={1}
-        xs={9} >
+        xs={8} >
         <TextField
           id='nextToDo'
           hintText="Enter a task."
@@ -27,11 +28,20 @@ const Input = props => (
           onChange={props.onChange} />
       </Col>
       <Col
-        xs={1} >
+        xs={2} >
 
         <IconButton
+          iconStyle={{
+            width: 60,
+            height: 60
+          }}
+          style={{
+            width: 120,
+            height: 120,
+            padding: 30
+          }}
           onTouchTap={props.onSubmit}>
-          <HardwareVideogameAsset />
+          <HardwareVideogameAsset color={orange500} />
         </IconButton>
       </Col>
     </Row>
